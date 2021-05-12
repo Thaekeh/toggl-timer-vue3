@@ -1,23 +1,20 @@
 <template>
-  <button id="toggle-timer-button" @click="toggleTimer()">
-    <PauseIcon v-if="timerIsRunning" id="pause-icon" />
-    <PlayIcon v-else id="play-icon" />
+  <button id="toggle-timer-button" @click="emitMethod()">
+    <CheckCircleIcon />
   </button>
 </template>
 
 <script>
-import { PlayIcon, StopIcon, PauseIcon } from '@heroicons/vue/solid';
+import { CheckCircleIcon } from '@heroicons/vue/solid';
 
 export default {
-  name: 'ToggleButton',
+  name: 'TimerButton',
   components: {
-      PlayIcon,
-      StopIcon,
-      PauseIcon
+      CheckCircleIcon
   },
   methods: {
-      toggleTimer() {
-          this.$emit('toggle-timer')
+      emitMethod() {
+          this.$emit('on-click')
       }
   },
   props: ['timerIsRunning']

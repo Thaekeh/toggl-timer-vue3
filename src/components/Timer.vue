@@ -22,12 +22,7 @@ export default {
 #time-paragraph {
     display: block;
     margin-bottom: auto;
-    margin-top: auto;
+    margin-top: 10px;
     height: 100%;
-    /* text-align: center; */
-    /* justify-self: center; */
-    text-justify: center;
-    justify-items: center;
-    justify-content: center;
 }
 </style>
