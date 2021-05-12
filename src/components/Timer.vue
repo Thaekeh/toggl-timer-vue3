@@ -9,10 +9,11 @@
 <script>
 export default {
   name: "Timer",
-  props: ["timeInMilliSeconds", "startDate"],
+  props: ["timeInMilliSeconds", "startTime"],
   methods: {
     timeSinceStart() {
-      return Math.floor((Date.now() - this.startDate) / 1000);
+      if (this.startTime === 0) return 0;
+      return Math.floor((Date.now() - this.startTime) / 1000);
     },
   },
 };
