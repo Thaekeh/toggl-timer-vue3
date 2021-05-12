@@ -1,15 +1,40 @@
 <template>
-    <div>
-        <table>
-            <td>
-                Title
-            </td>
-        </table>
-    </div>
+  <div>
+    <table id="session-table">
+      <tr>
+        <th>Title</th>
+        <th>id</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Total Time</th>
+      </tr>
+      <SessionRow
+        v-for="(session, id) in savedSessions"
+        :key="id"
+        :session="session"
+      />
+    </table>
+  </div>
 </template>
 
 <script>
+import SessionRow from "./SessionRow.vue";
+
 export default {
-    name: 'SavedSessions'
-}
+  name: "SavedSessions",
+  props: ["savedSessions"],
+  components: {
+    SessionRow,
+  },
+};
 </script>
+
+<style scoped>
+* {
+  color: #fff;
+}
+
+#session-table {
+  width: 100%;
+}
+</style>
