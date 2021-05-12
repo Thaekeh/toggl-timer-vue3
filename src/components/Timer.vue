@@ -13,7 +13,20 @@ export default {
   methods: {
     timeSinceStart() {
       if (this.startTime === 0) return 0;
-      return Math.floor((Date.now() - this.startTime) / 1000);
+      const timeInSeconds = Math.floor((Date.now() - this.startTime) / 1000);
+      const hours = Math.floor(timeInSeconds / 3600);
+      const minutes = Math.floor((timeInSeconds % 3600) / 60);
+      const seconds = Math.floor(timeInSeconds % 60);
+      return `${this.replaceSingleNumber(hours)}:${this.replaceSingleNumber(
+        minutes
+      )}:${this.replaceSingleNumber(seconds)}`;
+    },
+    replaceSingleNumber(number) {
+      if (this.isSingleDigit(number)) return `0${number}`;
+      return number;
+    },
+    isSingleDigit(number) {
+      return String(+number).charAt(0) == number;
     },
   },
 };
@@ -21,9 +34,9 @@ export default {
 
 <style scoped>
 #time-paragraph {
-    display: block;
-    margin-bottom: auto;
-    margin-top: 10px;
-    height: 100%;
+  display: block;
+  margin-bottom: auto;
+  margin-top: 10px;
+  height: 100%;
 }
 </style>
