@@ -1,7 +1,10 @@
 <template>
 <div id="app">
-  <TimerBar />
-  <SavedSessions />
+  <TimerBar @save-session="saveSession" @set-error="setError" />
+  <div id="error-space">
+    <p>{{ error }}</p>
+  </div>
+  <SavedSessions :savedSessions="savedSessions" />
 </div>
 </template>
 
@@ -14,6 +17,33 @@ export default {
   components: {
     TimerBar,
     SavedSessions
+  },
+  data() {
+    return {
+      savedSessions: [],
+      error: ''
+    }
+  },
+  methods: {
+    saveSession(item) {
+      this.savedSessions.push(item);
+    },
+    setError(errorMessage) {
+      this.error = errorMessage;
+    }
   }
 }
 </script>
+
+<style scoped>
+#app {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#error-space {
+  height: 20px;
+  color: red;
+}
+</style>
