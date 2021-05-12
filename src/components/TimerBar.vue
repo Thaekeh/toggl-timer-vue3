@@ -1,17 +1,14 @@
 <template>
   <div id="timer-bar">
-    <input id="title-input" />
+    <input id="title-input" v-model="sessionTitle" />
     <ToggleButton
       :timerIsRunning="timerIsRunning"
       @toggle-timer="toggleTimer()"
       id="toggle-timer-button"
     />
     <TimerButton @on-click="prepareSave()" />
-    <Timer :timeInMilliSeconds="timeInMilliSeconds" :startDate="startDate" />
+    <Timer :timeInMilliSeconds="timeInMilliSeconds" :startTime="startTime" />
   </div>
-    <li v-for="(item, id) in savedSessions" :key="id">
-      {{id}}
-    </li>
 </template>
 
 <script>
@@ -31,10 +28,11 @@ export default {
       timerIsRunning: false,
       timeInMilliSeconds: 0,
       interval: 0,
-      startDate: 0,
+      startTime: 0,
       id: 0,
+      sessionTitle: "",
       savedSessions: [],
-      currentSession: {}
+      currentSession: {},
     };
   },
   methods: {
@@ -44,7 +42,7 @@ export default {
       if (!this.timerIsRunning) this.stopTimer();
     },
     startTimer() {
-      this.startDate = Date.now();
+      this.startTime = Date.now();
       this.interval = setInterval(this.incrementTimer, 10);
     },
     stopTimer() {
@@ -54,15 +52,34 @@ export default {
       this.timeInMilliSeconds += 10;
     },
     prepareSave() {
-      this.savedSessions.push({id: this.getId()})
+      if (!this.sessionTitle) {
+        this.setError("Please fill in a title");
+        return;
+      }
+      if (!this.startTime) {
+        this.setError("Cannot save session when timer hasn't been started yet");
+        return;
+      }
+      this.currentSession = { id: this.getId(), title: this.sessionTitle, startTime: this.startTime };
+      this.saveSession();
+      this.resetData();
+    },
+    resetData() {
+      this.sessionTitle = '';
+      this.setError('');
+      this.startTime = 0;
+      this.timerIsRunning = false;
     },
     saveSession() {
-      this.$emit('save-session', this.currentSession)
+      this.$emit("save-session", this.currentSession);
+    },
+    setError(errorMessage) {
+      this.$emit("set-error", errorMessage);
     },
     getId() {
       this.id += 1;
       return this.id;
-    }
+    },
   },
 };
 </script>
@@ -71,10 +88,8 @@ export default {
 #timer-bar {
   background-color: #e5e5e5;
   display: flex;
-  margin-left: 10%;
   padding: 5px;
   border-radius: 5px;
-  max-width: 75%;
 }
 
 #toggle-timer-button {

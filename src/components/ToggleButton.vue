@@ -6,13 +6,12 @@
 </template>
 
 <script>
-import { PlayIcon, StopIcon, PauseIcon } from '@heroicons/vue/solid';
+import { PlayIcon, PauseIcon } from '@heroicons/vue/solid';
 
 export default {
   name: 'ToggleButton',
   components: {
       PlayIcon,
-      StopIcon,
       PauseIcon
   },
   methods: {

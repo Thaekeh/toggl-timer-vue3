@@ -1,5 +1,5 @@
 <template>
-  <button id="toggle-timer-button" @click="emitMethod()">
+  <button id="toggle-timer-button" @click="$emit('on-click')">
     <CheckCircleIcon />
   </button>
 </template>
@@ -11,11 +11,6 @@ export default {
   name: 'TimerButton',
   components: {
       CheckCircleIcon
-  },
-  methods: {
-      emitMethod() {
-          this.$emit('on-click')
-      }
   },
   props: ['timerIsRunning']
 }
