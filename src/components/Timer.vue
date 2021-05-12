@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="timer-container">
     <p id="time-paragraph">
       {{ timeSinceStart() }}
     </p>
@@ -38,5 +38,9 @@ export default {
   margin-bottom: auto;
   margin-top: 10px;
   height: 100%;
+}
+
+#timer-container {
+  width: 80px;
 }
 </style>
