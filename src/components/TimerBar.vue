@@ -47,28 +47,36 @@ export default {
     },
     stopTimer() {
       clearInterval(this.interval);
+      this.timerIsRunning = false;
     },
     incrementTimer() {
       this.timeInMilliSeconds += 10;
     },
     prepareSave() {
-      if (!this.sessionTitle) {
-        this.setError("Please fill in a title");
-        return;
-      }
+      this.stopTimer();
       if (!this.startTime) {
         this.setError("Cannot save session when timer hasn't been started yet");
         return;
       }
-      this.currentSession = { id: this.getId(), title: this.sessionTitle, startTime: this.startTime };
+      if (!this.sessionTitle) {
+        this.setError("Please fill in a title");
+        return;
+      }
+      const endTime = Date.now();
+      this.currentSession = {
+        id: this.getId(),
+        title: this.sessionTitle,
+        startTime: this.startTime,
+        endTime,
+        totalTime: endTime - this.startTime,
+      };
       this.saveSession();
       this.resetData();
     },
     resetData() {
-      this.sessionTitle = '';
-      this.setError('');
+      this.sessionTitle = "";
+      this.setError("");
       this.startTime = 0;
-      this.timerIsRunning = false;
     },
     saveSession() {
       this.$emit("save-session", this.currentSession);
