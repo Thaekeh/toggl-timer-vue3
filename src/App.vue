@@ -43,7 +43,7 @@ export default {
 }
 
 #error-space {
-  height: 20px;
+  height: 30px;
   color: red;
 }
 </style>

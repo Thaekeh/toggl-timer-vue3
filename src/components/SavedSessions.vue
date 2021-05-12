@@ -3,7 +3,6 @@
     <table id="session-table">
       <tr>
         <th>Title</th>
-        <th>id</th>
         <th>Start Time</th>
         <th>End Time</th>
         <th>Total Time</th>
